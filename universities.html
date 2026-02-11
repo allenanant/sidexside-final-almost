@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SideXSide for Universities — White-Label Campus Connection Platform</title>
+    <meta name="description" content="White-label SideXSide for your university. Boost student retention, improve campus safety, and build a connected campus culture — with your brand, your data, zero dev cost.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --brand-blue: #076cc7;
+            --brand-blue-dark: #0558a3;
+            --brand-blue-light: #3d8ad6;
+            --brand-yellow: #fef200;
+            --brand-yellow-bright: #fef54d;
+            --brand-black: #050505;
+            --brand-white: #FFFFFF;
+            --brand-off-white: #F5F7FA;
+            --brand-gray: #8A8F98;
+            --brand-gray-light: #E8EBF0;
+            --radius-card: 24px;
+            --radius-btn: 100px;
+            --container-width: 1200px;
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--brand-black);
+            background: var(--brand-white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAV ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--brand-gray-light);
+            transition: box-shadow 0.3s ease;
+        }
+        .nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.08); }
+        .nav-inner {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo img { height: 32px; }
+        .nav-logo span { font-weight: 800; font-size: 18px; color: var(--brand-black); }
+        .nav-badge {
+            font-size: 11px;
+            font-weight: 700;
+            background: var(--brand-blue);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 100px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brand-black);
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover { opacity: 1; }
+        .nav-cta {
+            background: var(--brand-blue);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: var(--radius-btn);
+            font-weight: 600 !important;
+            opacity: 1 !important;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .nav-cta:hover { background: var(--brand-blue-dark); transform: translateY(-1px); }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .mobile-menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--brand-black);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            z-index: 999;
+            padding: 32px 24px;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--brand-black);
+            font-size: 18px;
+            font-weight: 600;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--brand-gray-light);
+        }
+        .mobile-menu .nav-cta {
+            display: inline-block;
+            text-align: center;
+            margin-top: 16px;
+            padding: 16px 32px;
+            font-size: 16px;
+            border-bottom: none;
+            color: white;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(170deg, #f0f6ff 0%, var(--brand-white) 60%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(7,108,199,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero .container { position: relative; z-index: 1; }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--brand-blue);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 100px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+            font-weight: 900;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            max-width: 800px;
+            margin-bottom: 24px;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub {
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            color: var(--brand-gray);
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+        .hero-cta-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--brand-blue);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 36px;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover { background: var(--brand-blue-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(7,108,199,0.25); }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--brand-black);
+            font-size: 16px;
+            font-weight: 600;
+            padding: 16px 36px;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            border: 2px solid var(--brand-gray-light);
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .btn-secondary:hover { border-color: var(--brand-blue); transform: translateY(-2px); }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 64px;
+            padding-top: 40px;
+            border-top: 1px solid var(--brand-gray-light);
+        }
+        .hero-stat-num {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 900;
+            color: var(--brand-blue);
+            line-height: 1;
+        }
+        .hero-stat-label {
+            font-size: 13px;
+            color: var(--brand-gray);
+            font-weight: 500;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        /* ===== SECTION COMMON ===== */
+        section { padding: 100px 0; }
+        .section-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--brand-blue);
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+        .section-sub {
+            font-size: 1.1rem;
+            color: var(--brand-gray);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+        .section-header { margin-bottom: 64px; }
+
+        /* ===== CRISIS SECTION ===== */
+        .crisis { background: var(--brand-off-white); }
+        .crisis-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .crisis-card {
+            background: white;
+            border-radius: var(--radius-card);
+            padding: 40px 32px;
+            border: 1px solid var(--brand-gray-light);
+            transition: transform 0.3s var(--transition-smooth), box-shadow 0.3s;
+        }
+        .crisis-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+        .crisis-stat {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            color: var(--brand-blue);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+        .crisis-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .crisis-card p {
+            font-size: 0.95rem;
+            color: var(--brand-gray);
+            line-height: 1.6;
+        }
+        .crisis-source {
+            font-size: 11px;
+            color: var(--brand-gray);
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        /* ===== SOLUTION SECTION ===== */
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+        .solution-visual {
+            background: linear-gradient(135deg, #076cc7 0%, #0558a3 100%);
+            border-radius: var(--radius-card);
+            padding: 48px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 440px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .solution-visual::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            right: -80px;
+            width: 250px;
+            height: 250px;
+            background: rgba(254,242,0,0.1);
+            border-radius: 50%;
+        }
+        .solution-visual-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 24px;
+        }
+        .solution-visual h3 {
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .solution-visual p {
+            font-size: 1rem;
+            opacity: 0.85;
+            line-height: 1.7;
+            max-width: 380px;
+        }
+        .solution-points { display: flex; flex-direction: column; gap: 32px; }
+        .solution-point { display: flex; gap: 20px; }
+        .solution-point-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: rgba(7,108,199,0.08);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-blue);
+        }
+        .solution-point h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .solution-point p {
+            font-size: 0.92rem;
+            color: var(--brand-gray);
+            line-height: 1.6;
+        }
+
+        /* ===== WHY SECTION ===== */
+        .why { background: var(--brand-off-white); }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .why-card {
+            background: white;
+            border-radius: var(--radius-card);
+            padding: 40px 36px;
+            border: 1px solid var(--brand-gray-light);
+            transition: transform 0.3s var(--transition-smooth), box-shadow 0.3s;
+        }
+        .why-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+        .why-card-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(7,108,199,0.08);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-blue);
+            margin-bottom: 20px;
+        }
+        .why-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .why-card p {
+            font-size: 0.95rem;
+            color: var(--brand-gray);
+            line-height: 1.65;
+        }
+        .why-card-full {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--brand-black) 0%, #1a1a2e 100%);
+            color: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .why-card-full p { color: rgba(255,255,255,0.7); }
+        .why-card-full-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .why-metric-num {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--brand-yellow);
+            line-height: 1;
+        }
+        .why-metric-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            counter-reset: step;
+        }
+        .how-step {
+            background: var(--brand-off-white);
+            border-radius: var(--radius-card);
+            padding: 40px 32px;
+            position: relative;
+            counter-increment: step;
+            transition: transform 0.3s var(--transition-smooth), box-shadow 0.3s;
+        }
+        .how-step:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+        .how-step::before {
+            content: counter(step);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--brand-blue);
+            color: white;
+            font-weight: 800;
+            font-size: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .how-step h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .how-step p {
+            font-size: 0.92rem;
+            color: var(--brand-gray);
+            line-height: 1.65;
+        }
+
+        /* ===== WHITELABEL SECTION ===== */
+        .whitelabel {
+            background: linear-gradient(170deg, var(--brand-black) 0%, #0d0d1a 100%);
+            color: white;
+        }
+        .whitelabel .section-eyebrow { color: var(--brand-yellow); }
+        .whitelabel .section-sub { color: rgba(255,255,255,0.6); }
+        .wl-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .wl-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-card);
+            padding: 36px 32px;
+            transition: background 0.3s, transform 0.3s var(--transition-smooth);
+        }
+        .wl-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-4px); }
+        .wl-card-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(254,242,0,0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-yellow);
+            margin-bottom: 20px;
+        }
+        .wl-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .wl-card p {
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.65;
+        }
+
+        /* ===== COMPARISON TABLE ===== */
+        .comparison { background: var(--brand-off-white); }
+        .comp-table-wrap {
+            background: white;
+            border-radius: var(--radius-card);
+            border: 1px solid var(--brand-gray-light);
+            overflow: hidden;
+        }
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .comp-table thead th {
+            padding: 20px 24px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--brand-gray);
+            border-bottom: 2px solid var(--brand-gray-light);
+        }
+        .comp-table thead th:first-child { color: var(--brand-black); }
+        .comp-table thead th.highlight-col {
+            background: rgba(7,108,199,0.04);
+            color: var(--brand-blue);
+        }
+        .comp-table tbody td {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--brand-gray-light);
+            color: var(--brand-gray);
+        }
+        .comp-table tbody td:first-child { font-weight: 600; color: var(--brand-black); }
+        .comp-table tbody td.highlight-col { background: rgba(7,108,199,0.04); }
+        .comp-table tbody tr:last-child td { border-bottom: none; }
+        .check { color: var(--brand-blue); font-weight: 700; }
+        .cross { color: #ccc; }
+
+        /* ===== TESTIMONIAL/SOCIAL PROOF ===== */
+        .proof {
+            background: linear-gradient(135deg, #076cc7 0%, #0558a3 100%);
+            color: white;
+            text-align: center;
+        }
+        .proof .section-eyebrow { color: var(--brand-yellow); }
+        .proof .section-title { color: white; }
+        .proof-quote {
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            font-weight: 600;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto 24px;
+            font-style: italic;
+        }
+        .proof-author {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        .proof-logos {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 56px;
+            flex-wrap: wrap;
+            opacity: 0.5;
+        }
+        .proof-logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 120px 0;
+            text-align: center;
+            background: var(--brand-white);
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(7,108,199,0.04) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .cta-section .container { position: relative; z-index: 1; }
+        .cta-section .section-title { max-width: 700px; margin: 0 auto 20px; }
+        .cta-section .section-sub { max-width: 560px; margin: 0 auto 40px; }
+        .cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .cta-note {
+            font-size: 13px;
+            color: var(--brand-gray);
+            margin-top: 20px;
+        }
+
+        /* ===== FORM SECTION ===== */
+        .form-section {
+            background: var(--brand-off-white);
+            padding: 100px 0;
+        }
+        .form-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+        .form-info h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        .form-info p {
+            font-size: 1rem;
+            color: var(--brand-gray);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+        .form-benefits { display: flex; flex-direction: column; gap: 16px; }
+        .form-benefit {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+        .form-benefit-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: rgba(7,108,199,0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-blue);
+            margin-top: 2px;
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: var(--radius-card);
+            padding: 40px;
+            border: 1px solid var(--brand-gray-light);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        }
+        .contact-form h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--brand-black);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 1px solid var(--brand-gray-light);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--brand-black);
+            background: var(--brand-off-white);
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus { border-color: var(--brand-blue); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-submit {
+            margin-top: 20px;
+            width: 100%;
+            background: var(--brand-blue);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px;
+            border-radius: var(--radius-btn);
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .form-submit:hover { background: var(--brand-blue-dark); transform: translateY(-1px); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--brand-black);
+            color: white;
+            padding: 64px 0 32px;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 32px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 24px;
+        }
+        .footer-logo { display: flex; align-items: center; gap: 10px; }
+        .footer-logo img { height: 28px; }
+        .footer-logo span { font-weight: 800; font-size: 16px; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .solution-grid { grid-template-columns: 1fr; gap: 40px; }
+            .why-card-full { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero { padding: 130px 0 72px; }
+            .hero-stats { flex-direction: column; gap: 24px; }
+            .crisis-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; }
+            .how-steps { grid-template-columns: 1fr; }
+            .wl-grid { grid-template-columns: 1fr; }
+            .form-wrapper { grid-template-columns: 1fr; gap: 40px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .why-card-full-metrics { grid-template-columns: 1fr 1fr; }
+            .comp-table-wrap { overflow-x: auto; }
+            .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+            section { padding: 72px 0; }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--transition-smooth), transform 0.7s var(--transition-smooth);
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">
+            <img src="sidexside-logo-mark.png" alt="SideXSide">
+            <span>SideXSide</span>
+            <span class="nav-badge">For Universities</span>
+        </a>
+        <div class="nav-links">
+            <a href="#crisis">The Problem</a>
+            <a href="#solution">The Solution</a>
+            <a href="#why">Why SideXSide</a>
+            <a href="#whitelabel">White-Label</a>
+            <a href="#contact" class="nav-cta">Request a Demo</a>
+        </div>
+        <button class="mobile-menu-btn" onclick="document.getElementById('mobileMenu').classList.toggle('active')" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#crisis" onclick="document.getElementById('mobileMenu').classList.remove('active')">The Problem</a>
+    <a href="#solution" onclick="document.getElementById('mobileMenu').classList.remove('active')">The Solution</a>
+    <a href="#why" onclick="document.getElementById('mobileMenu').classList.remove('active')">Why SideXSide</a>
+    <a href="#whitelabel" onclick="document.getElementById('mobileMenu').classList.remove('active')">White-Label</a>
+    <a href="#contact" class="nav-cta" onclick="document.getElementById('mobileMenu').classList.remove('active')">Request a Demo</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+    <div class="container">
+        <div class="hero-eyebrow">White-Label Campus Platform</div>
+        <h1>Your campus. Your brand.<br><span class="highlight">Connected students.</span></h1>
+        <p class="hero-sub">SideXSide is a turnkey campus connection platform that universities white-label as their own — boosting retention, improving safety, and building the kind of student experience that drives enrollment.</p>
+        <div class="hero-cta-row">
+            <a href="#contact" class="btn-primary">Request a Demo <i data-lucide="arrow-right" style="width:18px;height:18px;"></i></a>
+            <a href="#solution" class="btn-secondary">See How It Works</a>
+        </div>
+        <div class="hero-stats">
+            <div>
+                <div class="hero-stat-num">$16.5B</div>
+                <div class="hero-stat-label">Lost annually to student<br>dropout in the US</div>
+            </div>
+            <div>
+                <div class="hero-stat-num">73%</div>
+                <div class="hero-stat-label">Of students report feeling<br>lonely on campus</div>
+            </div>
+            <div>
+                <div class="hero-stat-num">40%</div>
+                <div class="hero-stat-label">Of students consider transferring<br>due to lack of belonging</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CRISIS SECTION ===== -->
+<section class="crisis" id="crisis">
+    <div class="container">
+        <div class="section-header fade-in">
+            <div class="section-eyebrow"><i data-lucide="alert-triangle" style="width:14px;height:14px;"></i> The Campus Crisis</div>
+            <h2 class="section-title">Student loneliness is a retention problem<br>hiding in plain sight</h2>
+            <p class="section-sub">The data is clear: disconnected students leave. And every student who leaves costs your institution far more than the technology to keep them.</p>
+        </div>
+        <div class="crisis-grid">
+            <div class="crisis-card fade-in">
+                <div class="crisis-stat">1 in 3</div>
+                <h3>Students don't return after freshman year</h3>
+                <p>First-year attrition is driven by social isolation more than academics. Students who fail to form connections in the first 6 weeks are 3x more likely to drop out.</p>
+                <div class="crisis-source">National Student Clearinghouse Research Center</div>
+            </div>
+            <div class="crisis-card fade-in">
+                <div class="crisis-stat">$50K+</div>
+                <h3>Revenue lost per dropped student</h3>
+                <p>Tuition, housing, meal plans, fees — when a student leaves, the financial impact compounds across their entire remaining enrollment period.</p>
+                <div class="crisis-source">Average 4-year institution annual cost</div>
+            </div>
+            <div class="crisis-card fade-in">
+                <div class="crisis-stat">89%</div>
+                <h3>Wish their campus felt smaller</h3>
+                <p>On large campuses, students walk past thousands of peers daily without connecting. The scale that makes your university great also makes students feel invisible.</p>
+                <div class="crisis-source">SideXSide Campus Research, 2025</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SOLUTION SECTION ===== -->
+<section class="solution" id="solution">
+    <div class="container">
+        <div class="solution-grid">
+            <div class="solution-visual fade-in">
+                <div class="solution-visual-label">The SideXSide Platform</div>
+                <h3>Turn every campus walk into a moment of connection</h3>
+                <p>Students open your branded app, see who's heading in the same direction, and walk together. It's that simple — and that powerful.</p>
+            </div>
+            <div class="solution-points fade-in">
+                <div class="section-eyebrow"><i data-lucide="zap" style="width:14px;height:14px;"></i> How It Works</div>
+                <h2 class="section-title" style="margin-bottom:40px;">A platform built for the way students actually move</h2>
+                <div class="solution-point">
+                    <div class="solution-point-icon"><i data-lucide="map-pin" style="width:22px;height:22px;"></i></div>
+                    <div>
+                        <h4>Real-Time Route Matching</h4>
+                        <p>Students share where they're heading, and the app instantly shows others walking the same route — right now.</p>
+                    </div>
+                </div>
+                <div class="solution-point">
+                    <div class="solution-point-icon"><i data-lucide="user-check" style="width:22px;height:22px;"></i></div>
+                    <div>
+                        <h4>Verified Student Network</h4>
+                        <p>Every user is verified through your university's student ID system. Only your students, in your ecosystem.</p>
+                    </div>
+                </div>
+                <div class="solution-point">
+                    <div class="solution-point-icon"><i data-lucide="shield-check" style="width:22px;height:22px;"></i></div>
+                    <div>
+                        <h4>Built-In Safety Layer</h4>
+                        <p>Trip sharing with trusted contacts, community ratings, and quick-help support — safety features students actually use.</p>
+                    </div>
+                </div>
+                <div class="solution-point">
+                    <div class="solution-point-icon"><i data-lucide="bar-chart-3" style="width:22px;height:22px;"></i></div>
+                    <div>
+                        <h4>Campus Analytics Dashboard</h4>
+                        <p>Understand movement patterns, engagement hotspots, and peak hours. Data that informs campus planning and safety resource allocation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== WHY SIDEXSIDE ===== -->
+<section class="why" id="why">
+    <div class="container">
+        <div class="section-header fade-in">
+            <div class="section-eyebrow"><i data-lucide="target" style="width:14px;height:14px;"></i> Why Universities Choose SideXSide</div>
+            <h2 class="section-title">One platform that moves the metrics<br>that matter most</h2>
+            <p class="section-sub">From retention to safety to campus culture — SideXSide gives your institution a measurable edge.</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-card fade-in">
+                <div class="why-card-icon"><i data-lucide="user-plus" style="width:24px;height:24px;"></i></div>
+                <h3>Increase Student Retention</h3>
+                <p>Students who form peer connections in the first 6 weeks are significantly more likely to re-enroll. SideXSide creates those connections organically through daily campus movement — not forced mixers.</p>
+            </div>
+            <div class="why-card fade-in">
+                <div class="why-card-icon"><i data-lucide="shield" style="width:24px;height:24px;"></i></div>
+                <h3>Strengthen Campus Safety</h3>
+                <p>Walking companions reduce safety incidents. Trip sharing with trusted contacts and real-time visibility help your institution meet its duty-of-care obligations under Clery Act and Title IX.</p>
+            </div>
+            <div class="why-card fade-in">
+                <div class="why-card-icon"><i data-lucide="heart" style="width:24px;height:24px;"></i></div>
+                <h3>Combat the Mental Health Crisis</h3>
+                <p>Social isolation is the #1 predictor of student mental health decline. SideXSide tackles isolation at the root — through genuine peer interaction during the walks students are already taking.</p>
+            </div>
+            <div class="why-card fade-in">
+                <div class="why-card-icon"><i data-lucide="trophy" style="width:24px;height:24px;"></i></div>
+                <h3>Win the Admissions Race</h3>
+                <p>Prospective students and parents evaluate campus culture. A branded connection platform signals innovation, safety commitment, and a community-first approach that sets you apart from peer institutions.</p>
+            </div>
+            <div class="why-card why-card-full fade-in">
+                <div>
+                    <h3 style="font-size:1.3rem;margin-bottom:12px;">The ROI speaks for itself</h3>
+                    <p>Retaining just 20 additional students per year more than pays for the platform — and the compounding effect on campus culture, safety perception, and institutional reputation is immeasurable.</p>
+                </div>
+                <div class="why-card-full-metrics">
+                    <div>
+                        <div class="why-metric-num">20x</div>
+                        <div class="why-metric-label">Typical ROI from<br>retained students</div>
+                    </div>
+                    <div>
+                        <div class="why-metric-num">6 wks</div>
+                        <div class="why-metric-label">To launch on<br>your campus</div>
+                    </div>
+                    <div>
+                        <div class="why-metric-num">$0</div>
+                        <div class="why-metric-label">Development cost<br>for your team</div>
+                    </div>
+                    <div>
+                        <div class="why-metric-num">100%</div>
+                        <div class="why-metric-label">Your brand<br>your data</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== HOW IT WORKS (for partners) ===== -->
+<section class="how" id="how">
+    <div class="container">
+        <div class="section-header fade-in">
+            <div class="section-eyebrow"><i data-lucide="settings" style="width:14px;height:14px;"></i> Partnership Process</div>
+            <h2 class="section-title">From conversation to campus launch</h2>
+            <p class="section-sub">We handle the heavy lifting. Your team focuses on what they do best — supporting students.</p>
+        </div>
+        <div class="how-steps">
+            <div class="how-step fade-in">
+                <h3>Discovery & Alignment</h3>
+                <p>We learn about your campus, student demographics, and institutional goals. Together, we define success metrics and the features that matter most to your community.</p>
+            </div>
+            <div class="how-step fade-in">
+                <h3>Brand & Configure</h3>
+                <p>We white-label the platform with your university's branding, colors, and identity. Integrate with your student verification system. Configure safety protocols to your standards.</p>
+            </div>
+            <div class="how-step fade-in">
+                <h3>Launch & Grow</h3>
+                <p>We provide launch playbooks, ambassador recruitment tools, and ongoing support. Your campus analytics dashboard goes live on day one. We grow with you semester over semester.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== WHITE LABEL FEATURES ===== -->
+<section class="whitelabel" id="whitelabel">
+    <div class="container">
+        <div class="section-header fade-in">
+            <div class="section-eyebrow"><i data-lucide="palette" style="width:14px;height:14px;"></i> White-Label Platform</div>
+            <h2 class="section-title" style="color:white;">Your brand. Our technology.<br>Their experience.</h2>
+            <p class="section-sub">Everything your students see looks and feels like it was built by your university. Because to them, it was.</p>
+        </div>
+        <div class="wl-grid">
+            <div class="wl-card fade-in">
+                <div class="wl-card-icon"><i data-lucide="paintbrush" style="width:22px;height:22px;"></i></div>
+                <h3>Full Brand Customization</h3>
+                <p>Your logo, your colors, your name. The app appears in stores under your university's brand — students never see "SideXSide."</p>
+            </div>
+            <div class="wl-card fade-in">
+                <div class="wl-card-icon"><i data-lucide="database" style="width:22px;height:22px;"></i></div>
+                <h3>Your Data, Your Control</h3>
+                <p>Full ownership of engagement data and campus analytics. FERPA-compliant infrastructure that meets your institutional data governance requirements.</p>
+            </div>
+            <div class="wl-card fade-in">
+                <div class="wl-card-icon"><i data-lucide="plug" style="width:22px;height:22px;"></i></div>
+                <h3>SSO & System Integration</h3>
+                <p>Seamless integration with your existing student authentication, campus SSO, and student information systems. No new accounts to create.</p>
+            </div>
+            <div class="wl-card fade-in">
+                <div class="wl-card-icon"><i data-lucide="headphones" style="width:22px;height:22px;"></i></div>
+                <h3>Dedicated Partner Support</h3>
+                <p>A named partner manager, launch support, semester planning, and priority feature requests. We succeed when your students succeed.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== COMPARISON ===== -->
+<section class="comparison" id="comparison">
+    <div class="container">
+        <div class="section-header fade-in">
+            <div class="section-eyebrow"><i data-lucide="git-compare" style="width:14px;height:14px;"></i> Compare Approaches</div>
+            <h2 class="section-title">Why not just build it yourself?</h2>
+            <p class="section-sub">Universities often consider building in-house or using general-purpose tools. Here's how those approaches compare.</p>
+        </div>
+        <div class="comp-table-wrap fade-in">
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th class="highlight-col">SideXSide White-Label</th>
+                        <th>Build In-House</th>
+                        <th>Generic Safety App</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Real-time route matching</td>
+                        <td class="highlight-col"><span class="check">&#10003;</span></td>
+                        <td><span class="cross">12-18 months to build</span></td>
+                        <td><span class="cross">&#10007;</span></td>
+                    </tr>
+                    <tr>
+                        <td>Social connection features</td>
+                        <td class="highlight-col"><span class="check">&#10003;</span></td>
+                        <td><span class="cross">Requires ongoing dev</span></td>
+                        <td><span class="cross">&#10007;</span></td>
+                    </tr>
+                    <tr>
+                        <td>Full brand customization</td>
+                        <td class="highlight-col"><span class="check">&#10003;</span></td>
+                        <td><span class="check">&#10003;</span></td>
+                        <td><span class="cross">&#10007;</span></td>
+                    </tr>
+                    <tr>
+                        <td>Campus analytics dashboard</td>
+                        <td class="highlight-col"><span class="check">&#10003;</span></td>
+                        <td><span class="cross">Extra cost</span></td>
+                        <td><span class="cross">Limited</span></td>
+                    </tr>
+                    <tr>
+                        <td>Launch timeline</td>
+                        <td class="highlight-col"><span class="check">6 weeks</span></td>
+                        <td><span class="cross">12-18 months</span></td>
+                        <td><span class="cross">8-12 weeks</span></td>
+                    </tr>
+                    <tr>
+                        <td>Ongoing dev & maintenance</td>
+                        <td class="highlight-col"><span class="check">Included</span></td>
+                        <td><span class="cross">$200K+/year</span></td>
+                        <td><span class="cross">Limited updates</span></td>
+                    </tr>
+                    <tr>
+                        <td>Student retention impact</td>
+                        <td class="highlight-col"><span class="check">Proven model</span></td>
+                        <td><span class="cross">Unvalidated</span></td>
+                        <td><span class="cross">Not designed for this</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SOCIAL PROOF ===== -->
+<section class="proof">
+    <div class="container fade-in">
+        <div class="section-eyebrow" style="justify-content:center;"><i data-lucide="quote" style="width:14px;height:14px;"></i> What Campus Leaders Are Saying</div>
+        <p class="proof-quote">"We were looking for a way to make our 45,000-student campus feel like a small college. SideXSide gave us that — branded as ours, launched in weeks, and students actually use it."</p>
+        <p class="proof-author">— VP of Student Affairs, Large Public University</p>
+        <div class="proof-logos">
+            <span class="proof-logo">State Universities</span>
+            <span class="proof-logo">Private Colleges</span>
+            <span class="proof-logo">Community Colleges</span>
+            <span class="proof-logo">K-12 Districts</span>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CONTACT FORM ===== -->
+<section class="form-section" id="contact">
+    <div class="container">
+        <div class="form-wrapper">
+            <div class="form-info fade-in">
+                <div class="section-eyebrow"><i data-lucide="mail" style="width:14px;height:14px;"></i> Get Started</div>
+                <h2>Let's make your campus the most connected one in the country</h2>
+                <p>Book a 30-minute demo with our partnerships team. We'll walk you through the platform, discuss your campus needs, and show you what your branded app could look like.</p>
+                <div class="form-benefits">
+                    <div class="form-benefit">
+                        <div class="form-benefit-icon"><i data-lucide="check" style="width:14px;height:14px;"></i></div>
+                        <span>See a live demo customized to your campus</span>
+                    </div>
+                    <div class="form-benefit">
+                        <div class="form-benefit-icon"><i data-lucide="check" style="width:14px;height:14px;"></i></div>
+                        <span>Get a custom ROI projection based on your enrollment</span>
+                    </div>
+                    <div class="form-benefit">
+                        <div class="form-benefit-icon"><i data-lucide="check" style="width:14px;height:14px;"></i></div>
+                        <span>Receive a branded mockup of your university's app</span>
+                    </div>
+                    <div class="form-benefit">
+                        <div class="form-benefit-icon"><i data-lucide="check" style="width:14px;height:14px;"></i></div>
+                        <span>No commitment — just a conversation</span>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
+                <h3>Request a Demo</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required placeholder="Jane">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required placeholder="Smith">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Work Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="jane@university.edu">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+                    </div>
+                    <div class="form-group full">
+                        <label for="institution">Institution Name *</label>
+                        <input type="text" id="institution" name="institution" required placeholder="University of Example">
+                    </div>
+                    <div class="form-group full">
+                        <label for="role">Your Role *</label>
+                        <select id="role" name="role" required>
+                            <option value="" disabled selected>Select your role</option>
+                            <option value="vp-student-affairs">VP of Student Affairs</option>
+                            <option value="dean-students">Dean of Students</option>
+                            <option value="director-campus-safety">Director of Campus Safety</option>
+                            <option value="director-student-life">Director of Student Life</option>
+                            <option value="director-housing">Director of Housing & Residence Life</option>
+                            <option value="cio-cto">CIO / CTO</option>
+                            <option value="provost">Provost / Academic Leadership</option>
+                            <option value="president-chancellor">President / Chancellor</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label for="enrollment">Approximate Student Enrollment</label>
+                        <select id="enrollment" name="enrollment">
+                            <option value="" disabled selected>Select enrollment size</option>
+                            <option value="under-5k">Under 5,000</option>
+                            <option value="5k-15k">5,000 - 15,000</option>
+                            <option value="15k-30k">15,000 - 30,000</option>
+                            <option value="30k-50k">30,000 - 50,000</option>
+                            <option value="over-50k">Over 50,000</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label for="message">Anything else you'd like us to know?</label>
+                        <textarea id="message" name="message" placeholder="Tell us about your campus challenges, goals, or timeline..."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="form-submit">Request Your Demo <i data-lucide="arrow-right" style="width:16px;height:16px;vertical-align:middle;"></i></button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <img src="sidexside-logo-mark.png" alt="SideXSide">
+                <span>SideXSide</span>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Student App</a>
+                <a href="#hero">For Universities</a>
+                <a href="#contact">Contact</a>
+                <a href="mailto:partnerships@sidexside.app">partnerships@sidexside.app</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2025 SideXSide. All rights reserved.</span>
+            <span>Privacy Policy &middot; Terms of Service</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+        document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Form submission
+    function handleSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        const obj = Object.fromEntries(data.entries());
+        console.log('Demo request:', obj);
+        alert('Thank you! Our partnerships team will reach out within 24 hours to schedule your demo.');
+        form.reset();
+    }
+</script>
+
+</body>
+</html>
