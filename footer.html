@@ -1,135 +1,5 @@
-<!--
-    SideXSide Footer
-    Include this in your WordPress footer template.
-    CSS is included inline for easy integration.
--->
-
-<style>
-    /* Footer */
-    footer {
-        background: var(--brand-black);
-        padding: 80px 0 40px;
-        color: var(--brand-white);
-    }
-
-    .footer-grid {
-        display: grid;
-        grid-template-columns: 2fr repeat(4, 1fr);
-        gap: 40px;
-        margin-bottom: 60px;
-    }
-
-    .footer-brand p {
-        color: var(--brand-gray);
-        margin-top: 16px;
-        font-size: 15px;
-        line-height: 1.6;
-        max-width: 280px;
-    }
-
-    .social-links {
-        display: flex;
-        gap: 12px;
-        margin-top: 24px;
-    }
-
-    .social-link {
-        width: 44px;
-        height: 44px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: var(--brand-white);
-        text-decoration: none;
-    }
-
-    .social-link:hover {
-        background: var(--brand-yellow);
-        border-color: var(--brand-yellow);
-        color: var(--brand-black);
-        transform: translateY(-3px);
-    }
-
-    .footer-col h4 {
-        margin-bottom: 24px;
-        font-weight: 800;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: var(--brand-white);
-    }
-
-    .footer-col a {
-        color: var(--brand-gray);
-        display: block;
-        margin-bottom: 14px;
-        font-weight: 500;
-        font-size: 14px;
-        text-decoration: none;
-        transition: all 0.3s;
-    }
-
-    .footer-col a:hover {
-        color: var(--brand-yellow);
-        transform: translateX(4px);
-    }
-
-    .footer-bottom {
-        padding-top: 40px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: var(--brand-gray);
-        font-size: 14px;
-    }
-
-    .footer-bottom a {
-        color: var(--brand-gray);
-        text-decoration: none;
-        margin-left: 24px;
-        transition: color 0.3s;
-    }
-
-    .footer-bottom a:hover {
-        color: var(--brand-white);
-    }
-
-    /* Responsive - Footer */
-    @media (max-width: 1024px) {
-        .footer-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .footer-brand {
-            grid-column: span 2;
-        }
-    }
-
-    @media (max-width: 640px) {
-        .footer-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .footer-brand {
-            grid-column: span 1;
-        }
-
-        .footer-bottom {
-            flex-direction: column;
-            gap: 16px;
-            text-align: center;
-        }
-
-        .footer-bottom a {
-            margin: 0 12px;
-        }
-    }
-</style>
+<!-- WPCode Footer: Footer HTML + All JavaScript (GSAP Animations & FAQ Accordion) -->
+<!-- Note: Footer CSS is already included in header.html — do NOT duplicate it here -->
 
 <!-- Footer -->
 <footer>
@@ -137,7 +7,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="#" class="logo" style="color: var(--brand-white);">
-                    <img src="sidexside-logo-mark.png" alt="SideXSide Logo" style="height: 32px; width: auto;">
+                    <img src="https://sidexsideai-bikhs.wpcomstaging.com/wp-content/uploads/2026/02/sidexside-logo-mark.png" alt="sidexside Logo" style="height: 32px; width: auto;">
                 </a>
                 <p>Connecting students one walk at a time. Built by students, for students.</p>
                 <div class="social-links">
@@ -196,7 +66,7 @@
         </div>
 
         <div class="footer-bottom">
-            <span>&copy; 2025 SideXSide Inc. All rights reserved.</span>
+            <span>© 2025 sidexside Inc. All rights reserved.</span>
             <div>
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
@@ -205,3 +75,461 @@
         </div>
     </div>
 </footer>
+
+<!-- GSAP Animations & Page Scripts -->
+<script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Register GSAP plugins
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ── Scroll Progress Bar ──
+    gsap.to('.scroll-progress', {
+        scaleX: 1,
+        ease: 'none',
+        scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+    });
+
+    // ── Navbar scroll effect ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 100) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+    }, { passive: true });
+
+    // ── Hero parallax layers ──
+    gsap.to('.hero-grid', {
+        y: 80,
+        ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
+
+    gsap.to('.hero-bg-pattern', {
+        y: 40,
+        scale: 1.1,
+        ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
+
+    // Hero content fade-out on scroll
+    gsap.to('.hero-content', {
+        opacity: 0,
+        y: -60,
+        ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: '60% top', end: 'bottom top', scrub: 1 }
+    });
+
+    // ── Section headers — animated entrance ──
+    document.querySelectorAll('.section-header').forEach(header => {
+        const label = header.querySelector('.section-label');
+        const title = header.querySelector('.section-title');
+        const tl = gsap.timeline({
+            scrollTrigger: { trigger: header, start: 'top 82%', once: true }
+        });
+        if (label) tl.from(label, { opacity: 0, y: 20, scale: 0.9, duration: 0.5, ease: 'back.out(1.7)' });
+        if (title) tl.from(title, { opacity: 0, y: 30, duration: 0.6, ease: 'power3.out' }, '-=0.3');
+    });
+
+    // ── Mission section — words fade in gently ──
+    const missionText = document.querySelector('.mission-text');
+    if (missionText) {
+        gsap.from(missionText, {
+            opacity: 0,
+            y: 40,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: missionText, start: 'top 80%', once: true }
+        });
+    }
+
+    // ── Problem section — staggered stats ──
+    gsap.utils.toArray('.problem-stat').forEach((stat, i) => {
+        gsap.from(stat, {
+            opacity: 0,
+            x: -40,
+            duration: 0.7,
+            delay: i * 0.15,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: stat, start: 'top 85%', once: true }
+        });
+    });
+
+    // Problem stat numbers — count up
+    gsap.utils.toArray('.problem-stat-number').forEach(num => {
+        ScrollTrigger.create({
+            trigger: num,
+            start: 'top 85%',
+            once: true,
+            onEnter: () => {
+                gsap.from(num, { scale: 0.5, opacity: 0, duration: 0.6, ease: 'back.out(1.7)' });
+            }
+        });
+    });
+
+    // Problem visual — slide in from right with rotation
+    const problemVisual = document.querySelector('.problem-visual');
+    if (problemVisual) {
+        gsap.from(problemVisual, {
+            opacity: 0,
+            x: 60,
+            rotateY: 5,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: problemVisual, start: 'top 80%', once: true }
+        });
+    }
+
+    // Problem scenarios — stagger in
+    gsap.utils.toArray('.problem-scenario').forEach((scenario, i) => {
+        gsap.from(scenario, {
+            opacity: 0,
+            x: 30,
+            duration: 0.5,
+            delay: 0.3 + i * 0.15,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: problemVisual, start: 'top 80%', once: true }
+        });
+    });
+
+    // ── Step cards — staggered bounce ──
+    const stepCards = document.querySelectorAll('.step-card');
+    stepCards.forEach((card, i) => {
+        gsap.from(card, {
+            opacity: 0,
+            y: 50,
+            scale: 0.95,
+            duration: 0.6,
+            delay: i * 0.12,
+            ease: 'back.out(1.4)',
+            scrollTrigger: { trigger: card.parentElement, start: 'top 80%', once: true }
+        });
+    });
+
+    // Step numbers — pop in
+    stepCards.forEach((card, i) => {
+        const num = card.querySelector('.step-number');
+        if (num) {
+            gsap.from(num, {
+                scale: 0,
+                rotation: -180,
+                duration: 0.6,
+                delay: 0.2 + i * 0.12,
+                ease: 'back.out(2)',
+                scrollTrigger: { trigger: card.parentElement, start: 'top 80%', once: true }
+            });
+        }
+    });
+
+    // ── App screens — staggered rise ──
+    gsap.utils.toArray('.app-screen').forEach((screen, i) => {
+        gsap.from(screen, {
+            opacity: 0,
+            y: 80,
+            scale: 0.9,
+            rotation: i === 1 ? 0 : (i === 0 ? -3 : 3),
+            duration: 0.8,
+            delay: i * 0.15,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: '.app-preview-wrapper', start: 'top 85%', once: true }
+        });
+    });
+
+    // ── Feature cards — staggered reveal with variety ──
+    gsap.utils.toArray('.feature-card').forEach((card, i) => {
+        gsap.from(card, {
+            opacity: 0,
+            y: 40,
+            scale: 0.96,
+            duration: 0.7,
+            delay: i * 0.1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 85%', once: true }
+        });
+    });
+
+    // Feature visual phone — slide up on scroll
+    const featureVisual = document.querySelector('.feature-visual');
+    if (featureVisual) {
+        gsap.from(featureVisual, {
+            y: 100,
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: featureVisual, start: 'top 90%', once: true }
+        });
+    }
+
+    // Privacy cards — stagger from left
+    gsap.utils.toArray('.privacy-card').forEach((card, i) => {
+        gsap.from(card, {
+            opacity: 0,
+            x: -30,
+            duration: 0.5,
+            delay: i * 0.1,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: card.closest('.feature-card-full'), start: 'top 80%', once: true }
+        });
+    });
+
+    // ── Story cards — staggered rise with slight rotation ──
+    gsap.utils.toArray('.story-card').forEach((card, i) => {
+        gsap.from(card, {
+            opacity: 0,
+            y: 50,
+            rotation: (i % 2 === 0) ? -2 : 2,
+            duration: 0.6,
+            delay: i * 0.1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: card.parentElement, start: 'top 82%', once: true }
+        });
+    });
+
+    // Story icons — pop scale
+    gsap.utils.toArray('.story-icon').forEach((icon, i) => {
+        gsap.from(icon, {
+            scale: 0,
+            duration: 0.5,
+            delay: 0.2 + i * 0.1,
+            ease: 'back.out(2.5)',
+            scrollTrigger: { trigger: icon.closest('.story-card').parentElement, start: 'top 82%', once: true }
+        });
+    });
+
+    // ── Safety cards — staggered with icon bounce ──
+    gsap.utils.toArray('.safety-card').forEach((card, i) => {
+        gsap.from(card, {
+            opacity: 0,
+            y: 40,
+            duration: 0.6,
+            delay: i * 0.08,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: card.parentElement, start: 'top 82%', once: true }
+        });
+    });
+
+    gsap.utils.toArray('.safety-icon').forEach((icon, i) => {
+        gsap.from(icon, {
+            scale: 0,
+            rotation: -15,
+            duration: 0.5,
+            delay: 0.15 + i * 0.08,
+            ease: 'back.out(2)',
+            scrollTrigger: { trigger: icon.closest('.safety-card').parentElement, start: 'top 82%', once: true }
+        });
+    });
+
+    // ── Comparison table — rows slide in ──
+    gsap.utils.toArray('.comparison-row').forEach((row, i) => {
+        gsap.from(row, {
+            opacity: 0,
+            x: -20,
+            duration: 0.4,
+            delay: i * 0.06,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: '.comparison-table', start: 'top 80%', once: true }
+        });
+    });
+
+    // Comparison header slide
+    const compHeader = document.querySelector('.comparison-header');
+    if (compHeader) {
+        gsap.from(compHeader, {
+            opacity: 0,
+            y: -20,
+            duration: 0.5,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: '.comparison-table', start: 'top 80%', once: true }
+        });
+    }
+
+    // ── Campus / Ambassador section ──
+    const campusContent = document.querySelector('.campus-content');
+    const campusVisual = document.querySelector('.campus-visual');
+    if (campusContent) {
+        gsap.from(campusContent, {
+            opacity: 0,
+            x: -60,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: campusContent, start: 'top 80%', once: true }
+        });
+    }
+    if (campusVisual) {
+        gsap.from(campusVisual, {
+            opacity: 0,
+            x: 60,
+            scale: 0.95,
+            duration: 0.8,
+            delay: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: campusContent, start: 'top 80%', once: true }
+        });
+    }
+
+    // Campus benefits — stagger
+    gsap.utils.toArray('.campus-benefits li').forEach((li, i) => {
+        gsap.from(li, {
+            opacity: 0,
+            x: -25,
+            duration: 0.4,
+            delay: 0.4 + i * 0.1,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: campusContent, start: 'top 80%', once: true }
+        });
+    });
+
+    // Campus markers — pulse in
+    gsap.utils.toArray('.campus-marker').forEach((marker, i) => {
+        gsap.from(marker, {
+            scale: 0,
+            opacity: 0,
+            duration: 0.5,
+            delay: 0.5 + i * 0.2,
+            ease: 'back.out(2)',
+            scrollTrigger: { trigger: campusVisual, start: 'top 80%', once: true }
+        });
+    });
+
+    // ── Impact section ──
+    gsap.utils.toArray('.impact-card').forEach((card, i) => {
+        gsap.from(card, {
+            opacity: 0,
+            y: 50,
+            scale: 0.95,
+            duration: 0.6,
+            delay: i * 0.12,
+            ease: 'back.out(1.3)',
+            scrollTrigger: { trigger: card.parentElement, start: 'top 82%', once: true }
+        });
+    });
+
+    // Impact icons — spin in
+    gsap.utils.toArray('.impact-icon').forEach((icon, i) => {
+        gsap.from(icon, {
+            scale: 0,
+            rotation: 90,
+            duration: 0.6,
+            delay: 0.15 + i * 0.12,
+            ease: 'back.out(2)',
+            scrollTrigger: { trigger: icon.closest('.impact-card').parentElement, start: 'top 82%', once: true }
+        });
+    });
+
+    // Impact tagline
+    const impactTagline = document.querySelector('.impact-tagline');
+    if (impactTagline) {
+        gsap.from(impactTagline, {
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: impactTagline, start: 'top 90%', once: true }
+        });
+    }
+
+    // ── FAQ ──
+    const faqHeader = document.querySelector('.faq-header');
+    if (faqHeader) {
+        gsap.from(faqHeader, {
+            opacity: 0,
+            x: -40,
+            duration: 0.7,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: faqHeader, start: 'top 80%', once: true }
+        });
+    }
+
+    gsap.utils.toArray('.faq-item').forEach((item, i) => {
+        gsap.from(item, {
+            opacity: 0,
+            x: 30,
+            duration: 0.5,
+            delay: i * 0.08,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: item.parentElement, start: 'top 82%', once: true }
+        });
+    });
+
+    // FAQ Accordion - moved to separate script block for reliability
+
+    // ── CTA section — zoom in ──
+    const ctaContent = document.querySelector('.cta-content');
+    if (ctaContent) {
+        gsap.from(ctaContent, {
+            opacity: 0,
+            scale: 0.9,
+            y: 40,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: ctaContent, start: 'top 85%', once: true }
+        });
+    }
+
+    // ── Download section badges ──
+    gsap.utils.toArray('.download-badge').forEach((badge, i) => {
+        gsap.from(badge, {
+            opacity: 0,
+            y: 20,
+            duration: 0.5,
+            delay: i * 0.12,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: badge.parentElement, start: 'top 88%', once: true }
+        });
+    });
+
+    // ── Smooth scroll for nav links ──
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
+
+    // ── Mobile Menu ──
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        mobileMenu.querySelectorAll('.mobile-menu-link, .mobile-menu-cta').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+</script>
+
+<!-- FAQ Accordion (independent) -->
+<script>
+    // FAQ Accordion — independent script block so it works even if GSAP/Lucide fail
+    document.querySelectorAll('.faq-question').forEach(function(question) {
+        question.addEventListener('click', function() {
+            var item = question.parentElement;
+            var isActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(function(faq) { faq.classList.remove('active'); });
+            if (!isActive) item.classList.add('active');
+        });
+    });
+</script>
