@@ -16,6 +16,23 @@
 
 <!-- All CSS -->
     <style>
+        /* WordPress/Elementor Reset — prevent theme padding/margins */
+        .elementor-section,
+        .elementor-widget-wrap,
+        .elementor-widget,
+        .elementor-element,
+        .elementor-widget-html {
+            padding: 0 !important;
+            margin: 0 !important;
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+
+        .elementor-element .elementor-widget-container {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
         :root {
             /* Brand Colors - Blue + Yellow + Black/White */
             --brand-blue: #076cc7;
@@ -89,45 +106,30 @@
             padding: 0 24px;
         }
 
-        /* Navigation — Floating Glass Pill */
+        /* Navigation — Simple Fixed Bar */
         nav {
             position: fixed;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: auto;
-            max-width: calc(100% - 32px);
+            top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
             padding: 0;
-            transition: all 0.5s var(--transition-smooth);
+            transition: all 0.4s var(--transition-smooth);
         }
 
         .nav-content {
+            max-width: var(--container-width);
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 0;
-            background: rgba(15, 15, 20, 0.65);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 100px;
-            padding: 10px 10px 10px 24px;
-            box-shadow:
-                0 4px 24px rgba(0, 0, 0, 0.15),
-                0 1px 2px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.06);
-            transition: all 0.5s var(--transition-smooth);
+            justify-content: space-between;
+            padding: 16px 24px;
+            transition: all 0.4s var(--transition-smooth);
         }
 
-        nav.scrolled .nav-content {
-            background: rgba(255, 255, 255, 0.72);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            box-shadow:
-                0 4px 24px rgba(0, 0, 0, 0.08),
-                0 1px 2px rgba(0, 0, 0, 0.04),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        nav.scrolled {
+            background: var(--brand-white);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
         }
 
         .logo {
@@ -139,48 +141,29 @@
             display: flex;
             align-items: center;
             gap: 2px;
-            padding-right: 20px;
-            margin-right: 20px;
-            border-right: 1px solid rgba(255, 255, 255, 0.15);
             transition: all 0.4s;
             flex-shrink: 0;
         }
 
         nav.scrolled .logo {
             color: var(--brand-black);
-            border-right-color: rgba(0, 0, 0, 0.1);
         }
 
 
 
         .nav-links {
             display: flex;
-            gap: 28px;
+            gap: 32px;
             align-items: center;
         }
 
         .nav-link {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.75);
+            color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
-            transition: all 0.3s;
-            position: relative;
+            transition: color 0.3s;
             white-space: nowrap;
-            padding: 6px 0;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--brand-yellow);
-            border-radius: 1px;
-            transition: width 0.3s var(--transition-smooth);
         }
 
         .nav-link:hover {
@@ -188,19 +171,11 @@
         }
 
         nav.scrolled .nav-link {
-            color: rgba(0, 0, 0, 0.55);
+            color: var(--brand-gray);
         }
 
         nav.scrolled .nav-link:hover {
             color: var(--brand-black);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        nav.scrolled .nav-link::after {
-            background: var(--brand-blue);
         }
 
         .nav-cta {
@@ -208,44 +183,22 @@
             color: var(--brand-black);
             padding: 10px 24px;
             border-radius: 100px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 800;
             text-decoration: none;
-            transition: all 0.3s var(--transition-bounce);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s;
             margin-left: 8px;
             white-space: nowrap;
             flex-shrink: 0;
         }
 
-        .nav-cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
         .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(254, 242, 0, 0.4);
-        }
-
-        .nav-cta:hover::before {
-            left: 100%;
+            opacity: 0.9;
         }
 
         nav.scrolled .nav-cta {
             background: var(--brand-blue);
             color: var(--brand-white);
-        }
-
-        nav.scrolled .nav-cta:hover {
-            box-shadow: 0 6px 20px rgba(7, 108, 199, 0.35);
         }
 
         /* Hero Section */
@@ -2183,20 +2136,12 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
-            nav {
-                top: 12px;
-                max-width: calc(100% - 24px);
-            }
-
             .nav-content {
-                padding: 8px 12px 8px 20px;
+                padding: 12px 16px;
             }
 
             .logo {
                 font-size: 20px;
-                padding-right: 0;
-                margin-right: 0;
-                border-right: none;
             }
 
             .nav-links {
